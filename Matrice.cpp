@@ -14,6 +14,10 @@ Matrice::Matrice(int l, int c) : lignes(l), colonnes(c) {
     data.resize(lignes, std::vector<double>(colonnes, 0.0));
 }
 
+/***************************************************************************************/
+/************************* MANIPULATION DES DONNEES DE LA MATRICE **********************/
+/***************************************************************************************/
+
 // Accesseurs
 double Matrice::get(int i, int j) const {
     if (i >= 0 && i < lignes && j >= 0 && j < colonnes) {
@@ -49,6 +53,9 @@ void Matrice::set(int i, int j, double valeur) {
     }
 }
 
+/***************************************************************************************/
+/************************************** OPERATEUR **************************************/
+/***************************************************************************************/
 
 // Addition de matrices
 Matrice Matrice::operator+(const Matrice& autre) const {
@@ -120,6 +127,24 @@ Matrice Matrice::transpose() const {
     }
     return resultat;
 }
+
+// Trace
+double Matrice::trace() const {
+    // vérification de matrice carrée
+    if (lignes != colonnes) {
+        throw std::invalid_argument("La Trace n'existe que pour les matrices carrés");
+    }
+
+    double tr = 0.0;
+    for (int i = 0; i < lignes; i++) {
+        tr += data[i][i];
+    }
+    return tr;
+}
+
+/***************************************************************************************/
+/************************************** AFFICHAGE **************************************/
+/***************************************************************************************/
 
 // Surcharge de l'opérateur d'affichage
 std::ostream& operator<<(std::ostream& os, const Matrice& m) {

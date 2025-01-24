@@ -31,6 +31,10 @@ int main() {
     }
     std::cout << std::endl;
 
+    // Affectation de valeur dans la matrice
+    m2.set(0,0,10);
+    std::cout << "Changement de valeur :\n" << m2;
+
     // Addition
     Matrice m3 = m1 + m2;
     std::cout << "Addition :\n" << m3;
@@ -39,9 +43,11 @@ int main() {
     Matrice m4 = m1 * m2;
     std::cout << "Multiplication :\n" << m4;
 
-    // Affectation de valeur dans la matrice
-    m3.set(0,0,10);
-    std::cout << "Changement de valeur :\n" << m3;
+    // Trace
+    double tr = m4.trace();
+    std::cout << "Trace: " << tr << std::endl;
+
+
 
     return 0;
 }

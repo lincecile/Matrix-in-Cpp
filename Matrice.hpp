@@ -29,12 +29,11 @@ public:
     Matrice operator*(const Matrice& autre) const;
     Matrice operator*(double scalaire) const;
     Matrice transpose() const;
+    double trace() const;
 
     // Affichage
     friend std::ostream& operator<<(std::ostream& os, const Matrice& m);
 
-    // Affichage d'une ligne de la matrice
-    friend std::ostream& operator<<(std::ostream& os, const std::vector<double>& ligne);
 };
 
 #endif
