@@ -1,4 +1,10 @@
-#include "Matrice.h"
+#include <iostream>
+#include <vector>
+#include <string> 
+#include "Matrice.hpp"
+
+using namespace std;
+
 
 // Constructeur
 Matrice::Matrice(int l, int c) : lignes(l), colonnes(c) {
@@ -16,6 +22,25 @@ double Matrice::get(int i, int j) const {
     throw std::out_of_range("Indices hors limites");
 }
 
+
+std::vector<double> Matrice::getLignes(int i) const {
+    if (i >= 0 && i < lignes) {
+        return data[i];
+    }
+    throw std::out_of_range("Indices hors limites");
+}
+
+std::vector<double> Matrice::getColonne(int j) const {
+    if (j >= 0 && j < colonnes) {
+        std::vector<double> column;
+        for (const auto& row : data) {
+            column.push_back(row[j]);
+        }
+        return column;
+    }
+    throw std::out_of_range("Indice de colonne hors limites");
+}
+
 void Matrice::set(int i, int j, double valeur) {
     if (i >= 0 && i < lignes && j >= 0 && j < colonnes) {
         data[i][j] = valeur;
@@ -23,6 +48,7 @@ void Matrice::set(int i, int j, double valeur) {
         throw std::out_of_range("Indices hors limites");
     }
 }
+
 
 // Addition de matrices
 Matrice Matrice::operator+(const Matrice& autre) const {

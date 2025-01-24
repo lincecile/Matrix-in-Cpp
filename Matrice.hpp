@@ -5,6 +5,8 @@
 #include <vector>
 #include <stdexcept>
 
+using namespace std;
+
 class Matrice {
 private:
     std::vector<std::vector<double>> data;
@@ -18,8 +20,8 @@ public:
     // Accesseurs
     double get(int i, int j) const;
     void set(int i, int j, double valeur);
-    int getLignes() const { return lignes; }
-    int getColonnes() const { return colonnes; }
+    std::vector<double> getLignes(int i) const;// std::vector<double>;
+    std::vector<double> getColonne(int j) const;
 
     // Opérations de base
     Matrice operator+(const Matrice& autre) const;
@@ -30,6 +32,9 @@ public:
 
     // Affichage
     friend std::ostream& operator<<(std::ostream& os, const Matrice& m);
+
+    // Affichage d'une ligne de la matrice
+    friend std::ostream& operator<<(std::ostream& os, const std::vector<double>& ligne);
 };
 
 #endif
