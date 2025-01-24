@@ -4,7 +4,7 @@
 #include "Matrice.hpp"
 
 using namespace std;
-
+using namespace std::chrono;
 
 // Constructeur
 Matrice::Matrice(int l, int c) : lignes(l), colonnes(c) {
@@ -63,12 +63,23 @@ Matrice Matrice::operator+(const Matrice& autre) const {
         throw std::invalid_argument("Dimensions incompatibles pour l'addition");
     }
 
+    // chrono
+    auto start = high_resolution_clock::now();
+
+    // addition
     Matrice resultat(lignes, colonnes);
     for (int i = 0; i < lignes; i++) {
         for (int j = 0; j < colonnes; j++) {
             resultat.data[i][j] = data[i][j] + autre.data[i][j];
         }
     }
+
+    // affichage du chrono
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(end - start);
+    std::cout << "Additions des matrices en " 
+              << duration.count() << " microsecondes, soit "
+              << duration.count() / 1000000.0 << " secondes" << std::endl;
     return resultat;
 }
 
@@ -119,12 +130,24 @@ Matrice Matrice::operator*(double scalaire) const {
 
 // Transposition
 Matrice Matrice::transpose() const {
+    // chrono
+    auto start = high_resolution_clock::now();
+
+    // Transposition
     Matrice resultat(colonnes, lignes);
     for (int i = 0; i < lignes; i++) {
         for (int j = 0; j < colonnes; j++) {
             resultat.data[j][i] = data[i][j];
         }
     }
+
+    // affichage du chrono
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(end - start);
+    std::cout << "Transposition de la matrice en " 
+              << duration.count() << " microsecondes, soit "
+              << duration.count() / 1000000.0 << " secondes" << std::endl;
+
     return resultat;
 }
 

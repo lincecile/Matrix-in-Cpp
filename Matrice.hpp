@@ -4,8 +4,10 @@
 #include <iostream>
 #include <vector>
 #include <stdexcept>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 class Matrice {
 private:
