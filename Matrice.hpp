@@ -33,6 +33,12 @@ public:
     Matrice transpose() const;
     double trace() const;
 
+    // test
+    bool isDiagonal() const;
+    bool isTriangulaireSup() const;
+    bool isTriangulaireInf() const;
+    bool isCarre() const;
+
     // Affichage
     friend std::ostream& operator<<(std::ostream& os, const Matrice& m);
 

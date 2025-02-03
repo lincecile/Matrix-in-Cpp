@@ -1,5 +1,6 @@
 #include "Matrice.hpp"
 int main() {
+
     // Création de deux matrices carrées
     Matrice matrice_carree1(2, 2);
     matrice_carree1.set(0, 0, 1); matrice_carree1.set(0, 1, 2);
@@ -33,7 +34,11 @@ int main() {
         cout << "9. Calculer la trace" << endl;
         cout << "10. Calculer la transposée" << endl;
         cout << "11. Calculer l'inverse" << endl;
-        cout << "12. Quitter" << endl;
+        cout << "12. Vérifier si la matrice est diagonale" << endl;
+        cout << "13. Vérifier si la matrice est triangulaire supérieure" << endl;
+        cout << "14. Vérifier si la matrice est triangulaire inférieure" << endl;
+        cout << "15. Vérifier si la matrice est carrée" << endl;
+        cout << "16. Quitter" << endl;
         cout << "Votre choix : ";
         cin >> choix;
         cout << endl;
@@ -143,12 +148,47 @@ int main() {
                 }
             case 12:
             {
+                // Diagonal
+                std::cout << "Matrice :\n" << matrice_carree1 << endl;
+                bool estDiagonale = matrice_carree1.isDiagonal();
+                std::cout << "La matrice " << (estDiagonale ? "est diagonale" : "n'est pas diagonale") << std::endl;
+                break;
+            }
+            case 13:
+            {
+                // Triangulaire Supérieur
+                std::cout << "Matrice :\n" << matrice_carree1 << endl;
+                bool estTriangulaireSuperieure = matrice_carree1.isTriangulaireSup();
+                std::cout << "La matrice " << (estTriangulaireSuperieure ? "est triangulaire supérieure" : "n'est pas triangulaire supérieure") << std::endl;
+                break;
+            }
+            case 14:
+            {
+                // Triangulaire inférieur
+                std::cout << "Matrice :\n" << matrice_carree1 << endl;
+                bool estTriangulaireInferieure = matrice_carree1.isTriangulaireInf();
+                std::cout << "La matrice " << (estTriangulaireInferieure ? "est triangulaire inférieure" : "n'est pas triangulaire inférieure") << std::endl;
+                break;
+            }
+            case 15:
+            {
+                // Check if square
+                std::cout << "Matrice carrée :\n" << matrice_carree1 << endl;
+                std::cout << "Matrice non carrée :\n" << matrice_non_carree << endl;
+                bool estCarree1 = matrice_carree1.isCarre();
+                bool estCarree2 = matrice_non_carree.isCarre();
+                std::cout << "Matrice carrée 1 est " << (estCarree1 ? "est carrée" : "n'est pas carrée") << std::endl;
+                std::cout << "Matrice non carrée est " << (estCarree2 ? "carrée" : "non carrée") << std::endl;
+                break;
+            }
+            case 16:
+            {
                 cout << "Programme terminé !" << endl;
                 break;
                 }
             default:
                 cout << "Choix invalide, veuillez réessayer." << endl;
         }
-    } while (choix != 12);
+    } while (choix != 16);
     return 0;
 }

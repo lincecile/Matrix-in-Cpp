@@ -166,6 +166,64 @@ double Matrice::trace() const {
 }
 
 /***************************************************************************************/
+/**************************************** TEST *****************************************/
+/***************************************************************************************/
+
+bool Matrice::isCarre() const {
+    // Verifie si on a le même nombre de ligne et de colonne
+    return lignes == colonnes;
+}
+
+bool Matrice::isTriangulaireSup() const {
+    // Verifie que la matrice est carrée
+    if (!isCarre()) {
+        return false;
+    }
+
+    // Verifie que tous les éléments en dessous de la diagonale sont nuls
+    for (int i = 1; i < lignes; i++) {
+        for (int j = 0; j < i; j++) {
+            
+            // on prend pour seuil une valeur de type float tres faible qui correspondra à la valeur considérée comme nulle
+            if (std::abs(data[i][j]) > 1e-10) {  
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool Matrice::isTriangulaireInf() const {
+    // Verifie que la matrice est carrée
+    if (!isCarre()) {
+        return false;
+    }
+
+    // Verifie que tous les éléments au dessus de la diagonale sont nuls
+    for (int i = 0; i < lignes; i++) {
+        for (int j = i + 1; j < colonnes; j++) {
+            
+            // on prend pour seuil une valeur de type float tres faible qui correspondra à la valeur considérée comme nulle
+            if (std::abs(data[i][j]) > 1e-10) {  
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool Matrice::isDiagonal() const {
+    // Verifie que la matrice est carrée
+    if (!isCarre()) {
+        return false;
+    }
+
+    // Verifie que tous les éléments hors diagonale sont nuls
+    return isTriangulaireSup() && isTriangulaireInf();
+}
+
+
+/***************************************************************************************/
 /************************************** AFFICHAGE **************************************/
 /***************************************************************************************/
 
