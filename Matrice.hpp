@@ -17,13 +17,15 @@ private:
 
 public:
     // Constructeurs
-    Matrice(int l, int c);
+    Matrice(int l, int c);  // matrice de taille lxc
     
     // Accesseurs
     double get(int i, int j) const;
     void set(int i, int j, double valeur);
-    std::vector<double> getLignes(int i) const;// std::vector<double>;
+    std::vector<double> getLignes(int i) const;
     std::vector<double> getColonne(int j) const;
+    int getLignes() const { return lignes; }
+    int getColonnes() const { return colonnes; }
 
     // Opérations de base
     Matrice operator+(const Matrice& autre) const;
@@ -32,16 +34,20 @@ public:
     Matrice operator*(double scalaire) const;
     Matrice transpose() const;
     double trace() const;
+    Matrice inverse() const;
 
     // test
-    bool isDiagonal() const;
     bool isTriangulaireSup() const;
     bool isTriangulaireInf() const;
     bool isCarre() const;
+    bool isDiagonal() const;
+    bool isIdentite() const;
+    bool isNulle() const;
+    bool isInversible() const;
 
     // Affichage
     friend std::ostream& operator<<(std::ostream& os, const Matrice& m);
-
+    void arrondiZero();
 };
 
 #endif

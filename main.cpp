@@ -15,11 +15,20 @@ int main() {
     matrice_non_carree.set(0, 0, 1); matrice_non_carree.set(0, 1, 2); // ligne 1
     matrice_non_carree.set(1, 0, 3); matrice_non_carree.set(1, 1, 4); // ligne 2
     matrice_non_carree.set(2, 0, 5); matrice_non_carree.set(2, 1, 4); // ligne 3
-    // std::cout << "Matrice non carrée :\n" << matrice_non_carree; POURQUOI AFFICHER ??
+
+    // Création d'une matrice identité
+    Matrice matrice_id(3, 3);
+    matrice_id.set(0, 0, 1); matrice_id.set(0, 1, 0); matrice_id.set(0, 2, 0);
+    matrice_id.set(1, 0, 0); matrice_id.set(1, 1, 1); matrice_id.set(1, 2, 0);
+    matrice_id.set(2, 0, 0); matrice_id.set(2, 1, 0); matrice_id.set(2, 2, 1);
+
+    // Création d'une matrice nulle
+    Matrice matrice_nulle(2, 2);
+
+    // Création d'une matrice inverse 
+    Matrice matrice_carree1_inverse = matrice_carree1.inverse(); // pour l'exemple, on a vérifie à la main que la matrice était bien inversible
 
     int choix;
-    int n = 0;
-    int m = 0;
     do {
         // Affichage du menu
         cout << "\n===== MENU =====" << endl;
@@ -38,7 +47,11 @@ int main() {
         cout << "13. Vérifier si la matrice est triangulaire supérieure" << endl;
         cout << "14. Vérifier si la matrice est triangulaire inférieure" << endl;
         cout << "15. Vérifier si la matrice est carrée" << endl;
-        cout << "16. Quitter" << endl;
+        cout << "16. Vérifier si la matrice est une matrice identité" << endl;
+        cout << "17. Vérifier si la matrice est nulle" << endl;
+        cout << "18. Vérifier si la matrice est bien inversible" << endl;
+        cout << "19. Vérifier si la matrice est bien l'inverse de la matrice testée" << endl;
+        cout << "20. Quitter" << endl;
         cout << "Votre choix : ";
         cin >> choix;
         cout << endl;
@@ -47,7 +60,12 @@ int main() {
         switch (choix) {
             case 1:
             {
-                 // Accès à la valeur (n, m)
+                // Accès à la valeur (n, m)
+                int n, m;
+                std::cout << "Entrez la ligne : ";
+                cin >> n;
+                std::cout << "Entrez la colonne : ";
+                cin >> m;
                 std::cout << "Matrice :\n" << matrice_carree2 << endl;
                 double valeur_choisie = matrice_carree2.get(n,m);
                 std::cout << "Valeur de coordonnée (" << std::to_string(n) + "," + std::to_string(m) << ")\n" << valeur_choisie << std::endl;
@@ -57,6 +75,9 @@ int main() {
             case 2:
             {
                 // Accès à une ligne n
+                int n;
+                std::cout << "Entrez la ligne souhaitée: ";
+                cin >> n;
                 std::cout << "Matrice :\n" << matrice_carree2 << endl;
                 std::vector<double> ligne = matrice_carree2.getLignes(n);
                 std::cout << "Valeurs de la ligne numéro " << n << std::endl;
@@ -69,6 +90,9 @@ int main() {
             case 3:
             {
                 // Accès à une colonne m
+                int m;
+                std::cout << "Entrez la colonne souhaitée: ";
+                cin >> m;
                 std::cout << "Matrice :\n" << matrice_carree2 << endl;
                 std::vector<double> col = matrice_carree2.getColonne(m);
                 std::cout << "Valeurs de la colonne numéro " << m << std::endl;
@@ -80,16 +104,21 @@ int main() {
                 }
             case 4:
             {
-
                 // Affectation de valeur dans la matrice
-                std::cout << "Matrice avant modification :\n" << matrice_carree2 << endl;
-                matrice_carree2.set(0,0,10);
+                int n, m, valeur_choisi;
+                std::cout << "Matrice avant modification d'une valeur :\n" << matrice_carree2 << endl;
+                std::cout << "Entrez la ligne : ";
+                cin >> n;
+                std::cout << "Entrez la colonne : ";
+                cin >> m;
+                std::cout << "Entrez la valeur à affecter : ";
+                cin >> valeur_choisi;
+                matrice_carree2.set(n, m, valeur_choisi);
                 std::cout << "Matrice après modification :\n" << matrice_carree2;
                 break;
             }
             case 5:
             {
-
                 // Addition
                 std::cout << "Matrice 1 :\n" << matrice_carree1 << endl;
                 std::cout << "Matrice 2 :\n" << matrice_carree2 << endl;
@@ -99,7 +128,6 @@ int main() {
                 }
             case 6:
             {
-
                 // Soustraction
                 std::cout << "Matrice 1 :\n" << matrice_carree1 << endl;
                 std::cout << "Matrice 2 :\n" << matrice_carree2 << endl;
@@ -143,7 +171,14 @@ int main() {
             case 11:
             {
                 // Inversion
-                 std::cout << "En cours...\n" << endl;
+                std::cout << "Matrice à inverser :\n" << matrice_carree1 << endl;
+                if (matrice_carree1.isInversible()) {
+                    Matrice inverse = matrice_carree1.inverse();
+                    std::cout << "Matrice inversée :\n" << inverse;
+                    
+                } else {
+                    std::cout << "La matrice n'est pas inversible" << std::endl;
+                }
                 break;
                 }
             case 12:
@@ -172,7 +207,7 @@ int main() {
             }
             case 15:
             {
-                // Check if square
+                // Matrice carrée
                 std::cout << "Matrice carrée :\n" << matrice_carree1 << endl;
                 std::cout << "Matrice non carrée :\n" << matrice_non_carree << endl;
                 bool estCarree1 = matrice_carree1.isCarre();
@@ -182,13 +217,53 @@ int main() {
                 break;
             }
             case 16:
+            {   
+                // Matrice identité
+                std::cout << "Matrice identité :\n" << matrice_id << endl;
+                std::cout << "Matrice 1 :\n" << matrice_carree1 << endl;
+                bool estIdentite1 = matrice_id.isIdentite();
+                bool estIdentite2 = matrice_carree1.isIdentite();
+                std::cout << "Matrice identité " << (estIdentite1 ? "est une matrice identité" : "n'est pas une matrice identité") << std::endl;
+                std::cout << "Matrice 1 " << (estIdentite2 ? "est une matrice identité" : "n'est pas une matrice identité") << std::endl;
+                break;
+            }
+            case 17:
+            {   
+                // Test matrice nulle
+                std::cout << "Matrice nulle :\n" << matrice_nulle << endl;
+                std::cout << "Matrice 1 :\n" << matrice_carree1 << endl;
+                bool estNulle1 = matrice_nulle.isNulle();
+                bool estNulle2 = matrice_carree1.isNulle();
+                std::cout << "Matrice nulle " << (estNulle1 ? "est une matrice nulle" : "n'est pas une matrice nulle") << std::endl;
+                std::cout << "Matrice 1 " << (estNulle2 ? "est une matrice nulle" : "n'est pas une matrice nulle") << std::endl;
+                break;
+            }
+            case 18:
+            {   
+                // Test inversible
+                std::cout << "Matrice inversible ou non :\n" << matrice_carree1 << endl;
+                bool estInversible = matrice_carree1.isInversible();
+                std::cout << (estInversible ? "La matrice est bien inversible, tapez 11 pour obtenir la matrice inverse." : "La matrice n'est pas inversible.") << std::endl;
+                break;
+            }
+            case 19:
+            {   
+                // Test matrice inverse: vérification : A * A^(-1) devrait donner la matrice identité
+                Matrice verification = matrice_carree1 * matrice_carree1_inverse;
+                verification.arrondiZero();
+                std::cout << "Vérification (devrait être proche de la matrice identité) :\n" << verification;
+                bool estInverse1 = verification.isIdentite();
+                std::cout << "Matrice 1 inverse " << (estInverse1 ? "est bien la matrice inverse" : "n'est pas l'inverse de la matrice testée") << std::endl;
+                break;
+            }
+            case 20:
             {
                 cout << "Programme terminé !" << endl;
                 break;
-                }
+            }
             default:
                 cout << "Choix invalide, veuillez réessayer." << endl;
         }
-    } while (choix != 16);
+    } while (choix != 20);
     return 0;
 }
