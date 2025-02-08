@@ -1,6 +1,5 @@
-#include <iostream>
-#include <vector>
 #include "Matrice.hpp"
+#include <chrono> 
 
 using namespace std;
 using namespace std::chrono;
@@ -14,6 +13,9 @@ Matrice::Matrice(int l, int c) : lignes(l), colonnes(c) {
     }
     data.resize(lignes, std::vector<double>(colonnes, 0.0));
 }
+
+// Destructeur
+Matrice::~Matrice() {}
 
 /***************************************************************************************/
 /************************* MANIPULATION DES DONNEES DE LA MATRICE **********************/
@@ -179,7 +181,7 @@ Matrice Matrice::inverse() const {
             }
         }
 
-        // Échange les lignes si nécessaire
+        // Echange les lignes si nécessaire
         if (lignePivotMax != i) {
             for (int j = 0; j < 2 * colonnes; j++) {
                 double temp = augmented.get(i, j);
@@ -227,11 +229,13 @@ Matrice Matrice::inverse() const {
 /**************************************** TEST *****************************************/
 /***************************************************************************************/
 
+// Carrée
 bool Matrice::isCarre() const {
     // Verifie si on a le même nombre de ligne et de colonne
     return lignes == colonnes;
 }
 
+// Triangulaire Supérieure
 bool Matrice::isTriangulaireSup() const {
     // Verifie que la matrice est carrée
     if (!isCarre()) {
@@ -251,6 +255,7 @@ bool Matrice::isTriangulaireSup() const {
     return true;
 }
 
+// Triangulaire Inférieure
 bool Matrice::isTriangulaireInf() const {
     // Verifie que la matrice est carrée
     if (!isCarre()) {
@@ -270,6 +275,7 @@ bool Matrice::isTriangulaireInf() const {
     return true;
 }
 
+// Diagonale
 bool Matrice::isDiagonal() const {
     // Verifie que la matrice est carrée
     if (!isCarre()) {
@@ -280,6 +286,7 @@ bool Matrice::isDiagonal() const {
     return isTriangulaireSup() && isTriangulaireInf();
 }
 
+// Identité
 bool Matrice::isIdentite() const {
     // Verifie d'abord si c'est une matrice diagonale
     if (!isDiagonal()) {
@@ -295,6 +302,7 @@ bool Matrice::isIdentite() const {
     return true;
 }
 
+// Nulle
 bool Matrice::isNulle() const {
     for (int i = 0; i < lignes; i++) {
         for (int j = 0; j < colonnes; j++) {
@@ -306,6 +314,7 @@ bool Matrice::isNulle() const {
     return true;
 }
 
+// Inversible
 bool Matrice::isInversible() const {
     // Une matrice est inversible si elle est carrée et son déterminant n'est pas nul
 
@@ -314,7 +323,7 @@ bool Matrice::isInversible() const {
         return false;
     }
     
-    // Pour une matrice 1x1
+    // Pour une matrice 1x1, il suffit que la valeur ne soit pas nulle
     if (lignes == 1) {
         return std::abs(data[0][0]) > 1e-10;
     }
@@ -346,10 +355,10 @@ bool Matrice::isInversible() const {
             return false;
         }
         
-        // Échange les lignes pour avoir le pivot en diagonal
+        // Echange les lignes pour avoir le pivot en diagonal
         std::swap(mat[i], mat[lignePivotMax]);
         
-        // Élimination des éléments en dessous du pivot
+        // Elimination des éléments en dessous du pivot
         for (int k = i + 1; k < lignes; k++) {
             double facteur = mat[k][i] / mat[i][i];
             for (int j = i; j < lignes; j++) {

@@ -4,10 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <stdexcept>
-#include <chrono>
 
 using namespace std;
-using namespace std::chrono;
 
 class Matrice {
 private:
@@ -18,14 +16,15 @@ private:
 public:
     // Constructeurs
     Matrice(int l, int c);  // matrice de taille lxc
+
+    // Destructeur
+    ~Matrice();  
     
     // Accesseurs
     double get(int i, int j) const;
     void set(int i, int j, double valeur);
     std::vector<double> getLignes(int i) const;
     std::vector<double> getColonne(int j) const;
-    int getLignes() const { return lignes; }
-    int getColonnes() const { return colonnes; }
 
     // Opérations de base
     Matrice operator+(const Matrice& autre) const;
