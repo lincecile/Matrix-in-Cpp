@@ -58,6 +58,14 @@ int main() {
         cin >> choix;
         cout << endl;
 
+        // Vérification de l'entrée
+        if (cin.fail()) {
+            cin.clear();  
+            cin.ignore(1000, '\n');
+            cout << "Entrée invalide ! Veuillez entrer un nombre entre 1 et 20.";
+            cout << endl;
+            continue; // Recommence la boucle
+        }
 
         switch (choix) {
             case 1:
